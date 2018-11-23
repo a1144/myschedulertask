@@ -4,14 +4,13 @@ import com.shuangyu.model.User;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduleSender implements RabbitTemplate.ConfirmCallback {
     @Autowired
     private RabbitTemplate rabbitTemplate;
-    @Scheduled(cron = "*/6 * * * * ?")
+    //@Scheduled(cron = "*/6 * * * * ?")
     public void send(){
         rabbitTemplate.setConfirmCallback(this);
         User user = new User();

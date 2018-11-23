@@ -53,13 +53,28 @@ public class RabbitmqConfig {
     }
 
     @Bean
+    public Queue bbsEmailQueue(){
+        return new Queue("bbsQueue");
+    }
+
+    @Bean
     TopicExchange topicExchange(){
         return new TopicExchange("exchange");
     }
 
     @Bean
+    TopicExchange bbsEmailTopicExchange(){
+        return new TopicExchange("bbsTopicExchange");
+    }
+
+    @Bean
     Binding bindingExchange(Queue userQueue,TopicExchange topicExchange){
         return BindingBuilder.bind(userQueue).to(topicExchange).with("topic.test");
+    }
+
+    @Bean
+    Binding bindingBBSExchange(Queue bbsEmailQueue,TopicExchange bbsEmailTopicExchange){
+        return BindingBuilder.bind(bbsEmailQueue).to(bbsEmailTopicExchange).with("topic.duowan.tiandao.email");
     }
 
 }

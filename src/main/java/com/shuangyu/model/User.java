@@ -1,8 +1,6 @@
 package com.shuangyu.model;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class User {
     private String name;
     private Integer age;
 
@@ -20,13 +18,5 @@ public class User implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
     }
 }
