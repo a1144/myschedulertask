@@ -9,7 +9,7 @@ public interface BbsTiandaoEmailSummaryService {
 
     public BbsTiandaoEmailSummary findBbsTiandaoEmailSummaryById();
 
-    public void save(BbsTiandaoEmailSummary bbsTiandaoEmailSummary);
+    public void saveBbsTianDaoEmailSummaryList(List<BbsTiandaoEmailSummary> bbsTiandaoEmailSummaryList);
 
     public void delete(long id);
 

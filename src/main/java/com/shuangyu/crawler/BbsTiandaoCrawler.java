@@ -8,6 +8,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class BbsTiandaoCrawler {
      * @return: java.lang.Object
      * @Date: 2018/11/23
      */
-    public static Object topPostCrawler() {
+    public static List<BbsTiandaoEmailSummary> topPostCrawler() {
         long start = System.currentTimeMillis();
         String url = "http://bbs.duowan.com/forum-2400-1.html";
         List<String> detailUrl = new ArrayList<>();
@@ -29,22 +32,32 @@ public class BbsTiandaoCrawler {
         for (Element element1 : element.getElementsByTag("a")) {
             String link = element1.attr("abs:href");
             detailUrl.add(link);
-            System.out.println(link);
+            //System.out.println(link);
         }
         bbsTiandaoEmailSummaryList = getSummary(detailUrl);
-
-
-        return null;
+        return bbsTiandaoEmailSummaryList;
     }
 
     public static void main(String[] args) {
-        topPostCrawler();
+
+
+       /* for (BbsTiandaoEmailSummary bbsTiandaoEmailSummary : topPostCrawler()) {
+            System.out.println(bbsTiandaoEmailSummary);
+        }*/
+       topPostCrawler();
+
     }
 
-
+    /**
+    * @Description: 开始爬取每个热帖数据
+    * @param: urlList 热帖链接
+    * @return: java.util.List<com.shuangyu.model.BbsTiandaoEmailSummary>
+    * @Date: 2018/11/24
+    */
     public static List<BbsTiandaoEmailSummary> getSummary(List<String> urlList) {
-
+        List<BbsTiandaoEmailSummary> bbsTiandaoEmailSummaryList = new ArrayList<>();
         for (String url : urlList) {
+            BbsTiandaoEmailSummary bbsTiandaoEmailSummary = new BbsTiandaoEmailSummary();
             Document document = null;
             document = HtmlUtil.getHtmlTextByUrl(url);
             //System.out.println(document);
@@ -52,18 +65,33 @@ public class BbsTiandaoCrawler {
             Element authorContent = document.getElementById("postlist").getElementsByTag("div").first();
 
             String author = authorContent.getElementsByClass("authi").first().getElementsByTag("a").first().ownText();
-            System.out.println(author);
-            //System.out.println(authorContent);
-            System.out.println(authorContent.getElementsByTag("table").get(0)/*.getElementsByClass("authi").first()*/);
-            /*String createTime = authorContent.getElementsByTag("table").first().getElementsByClass("authi").get(1).
-                    getElementsByTag("em").first().getElementsByTag("em").first().getElementsByTag("span").
-                    attr("title");*/
-            int i = 1/0;
+            //System.out.println(author);
+            String createTime = authorContent.getElementsByTag("table").get(2).getElementsByClass("authi").last().
+                    getElementsByTag("em").first().getElementsByTag("span").attr("title");
             //System.out.println(createTime);
 
+            String title = authorContent.getElementById("thread_subject").ownText();
+            //System.out.println(title);
+
+            String type = authorContent.getElementsByClass("ts z").first().getElementsByTag("a").first().text();
+            //System.out.println(type);
+
+            String content = authorContent.getElementsByClass("t_f").first().text();
+            System.out.println(content);
+
+            bbsTiandaoEmailSummary.setType(type);
+            bbsTiandaoEmailSummary.setTitle(title);
+            bbsTiandaoEmailSummary.setAuthor(author);
+            bbsTiandaoEmailSummary.setLink(url);
+            try {
+                bbsTiandaoEmailSummary.setCreateTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(createTime));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            bbsTiandaoEmailSummaryList.add(bbsTiandaoEmailSummary);
         }
 
-        return null;
+        return bbsTiandaoEmailSummaryList;
     }
 
 }

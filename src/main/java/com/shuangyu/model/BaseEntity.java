@@ -8,13 +8,14 @@ import java.util.Date;
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    //@Id
+    public Long id;
     @Column(name = "create_time")
-    private Date createTime;
+    public Date createTime;
     @Column(name = "insert_time")
-    private Date insertTime;
+    public Date insertTime;
 
     public Long getId() {
         return id;

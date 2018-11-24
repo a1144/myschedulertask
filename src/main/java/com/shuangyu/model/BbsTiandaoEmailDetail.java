@@ -1,13 +1,17 @@
 package com.shuangyu.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
 
-@Entity
-@Table(name="bbs_tiandao_email")
-public class BbsTiandaoEmailSummary extends BaseEntity{
+
+@Document(collection = "bbs_tiandao_email_detail")
+public class BbsTiandaoEmailDetail extends BaseEntity{
+    @Id
+    private Long id;
     @Column(name = "type")
     private String type;
     @Column(name = "title")
@@ -70,17 +74,25 @@ public class BbsTiandaoEmailSummary extends BaseEntity{
     }
 
     @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
     public String toString() {
-        return "BbsTiandaoEmailSummary{" +
-                "type='" + type + '\'' +
+        return "BbsTiandaoEmailDetail{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", link='" + link + '\'' +
                 ", sender='" + sender + '\'' +
                 ", receiver='" + receiver + '\'' +
-                ", id=" + id +
-                ", createTime=" + createTime +
-                ", insertTime=" + insertTime +
                 '}';
     }
 }
