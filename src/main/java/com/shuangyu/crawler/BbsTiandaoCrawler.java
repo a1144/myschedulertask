@@ -44,16 +44,16 @@ public class BbsTiandaoCrawler {
        /* for (BbsTiandaoEmailSummary bbsTiandaoEmailSummary : topPostCrawler()) {
             System.out.println(bbsTiandaoEmailSummary);
         }*/
-       topPostCrawler();
+        topPostCrawler();
 
     }
 
     /**
-    * @Description: 开始爬取每个热帖数据
-    * @param: urlList 热帖链接
-    * @return: java.util.List<com.shuangyu.model.BbsTiandaoEmailSummary>
-    * @Date: 2018/11/24
-    */
+     * @Description: 开始爬取每个热帖数据
+     * @param: urlList 热帖链接
+     * @return: java.util.List<com.shuangyu.model.BbsTiandaoEmailSummary>
+     * @Date: 2018/11/24
+     */
     public static List<BbsTiandaoEmailSummary> getSummary(List<String> urlList) {
         List<BbsTiandaoEmailSummary> bbsTiandaoEmailSummaryList = new ArrayList<>();
         for (String url : urlList) {
