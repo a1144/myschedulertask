@@ -16,17 +16,19 @@ public class MailServiceImpl implements MailService {
 
   @Autowired
   private JavaMailSender javaMailSender;
-  @Value("$(mail.fromMail.addr)")
-  private String from;
+  /*@Value("$(mail.fromMail.addr)")
+  private String from;*/
 
   @Override
   public void sendSimpleMail(String to, String subject, String content) {
     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+    String from = "1144950389@qq.com";
     simpleMailMessage.setFrom(from);
     simpleMailMessage.setTo(to);
     simpleMailMessage.setSubject(subject);
     simpleMailMessage.setText(content);
     try {
+      //JavaMailSender javaMailSender = new JavaMailSenderImpl();
       javaMailSender.send(simpleMailMessage);
       logger.info("发送成功");
     } catch (Exception e) {

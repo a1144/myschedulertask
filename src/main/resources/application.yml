@@ -38,22 +38,25 @@ spring:
   mail:
     host: smtp.qq.com
     username: 1144950389@qq.com
-    password: kvmkgzkywhgibagd
+    password: heuuypjhdbczfjbf
     default-encoding: utf-8
-
-mail:
-  fromMail:
-    addr: 1144950389@qq.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 logging:
   level:
     com.shuangyu: INFO
   file: ./logs/test.log
 
-mail:
-  host: smtp.qq.com
-  username: 1144950389@qq.com
-  password: kvmkgzkywhgibagd
+
+#mail:
+  #fromMail:
+    #addr: 1144950389@qq.com
 
 
 
