@@ -18,7 +18,7 @@ spring:
         default-requeue-rejected: false
   #mysql连接信息
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -49,6 +49,11 @@ logging:
   level:
     com.shuangyu: INFO
   file: ./logs/test.log
+
+mail:
+  host: smtp.qq.com
+  username: 1144950389@qq.com
+  password: kvmkgzkywhgibagd
 
 
 
