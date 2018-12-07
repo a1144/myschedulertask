@@ -5,6 +5,7 @@ import com.shuangyu.model.BbsTiandaoEmailDetail;
 import com.shuangyu.model.BbsTiandaoEmailSummary;
 import com.shuangyu.service.BbsTiandaoEmailDetailService;
 import com.shuangyu.service.BbsTiandaoEmailSummaryService;
+import com.shuangyu.service.MailService;
 import com.shuangyu.util.HtmlUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,8 @@ public class MyschedulertaskApplicationTests {
     private BbsTiandaoEmailSummaryService bbsTiandaoEmailSummaryService;
     @Autowired
     private BbsTiandaoEmailDetailService bbsTiandaoEmailDetailService;
+    @Autowired
+    private MailService mailService;
 
     @Test
     public void contextLoads() {
@@ -41,6 +44,11 @@ public class MyschedulertaskApplicationTests {
         bbsTiandaoEmailSummaryService.saveBbsTianDaoEmailSummaryList(BbsTiandaoCrawler.topPostCrawler());
         long end = System.currentTimeMillis();
         System.out.println("运行时长：" + (end - start) + "ms");
+    }
+
+    @Test
+    public void testSendSimpleMail(){
+        mailService.sendSimpleMail("m17854282392@163.com","测试简单邮件","测试test。。。。");
     }
 
 }

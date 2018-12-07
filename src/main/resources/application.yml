@@ -35,11 +35,23 @@ spring:
         hbm2ddl:
           auto: update
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  mail:
+    host: smtp.qq.com
+    username: 1144950389@qq.com
+    password: kvmkgzkywhgibagd
+    default-encoding: utf-8
+
+mail:
+  fromMail:
+    addr: 1144950389@qq.com
 
 logging:
   level:
     com.shuangyu: INFO
   file: ./logs/test.log
+
+
+
 
 
 
