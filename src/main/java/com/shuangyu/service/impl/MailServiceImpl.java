@@ -1,12 +1,16 @@
 package com.shuangyu.service.impl;
 
 import com.shuangyu.service.MailService;
+import java.io.File;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,15 +18,25 @@ public class MailServiceImpl implements MailService {
 
   private static Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 
+  private static String from = "1144950389@qq.com";
+
   @Autowired
   private JavaMailSender javaMailSender;
   /*@Value("$(mail.fromMail.addr)")
   private String from;*/
 
+  /**
+  * @Description:   发送简单邮件
+  * @param: to  收件人
+  * @param: subject  主题
+  * @param: content  内容
+  * @return: void
+  * @Date: 2018/12/8
+  */
+  
   @Override
   public void sendSimpleMail(String to, String subject, String content) {
     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-    String from = "1144950389@qq.com";
     simpleMailMessage.setFrom(from);
     simpleMailMessage.setTo(to);
     simpleMailMessage.setSubject(subject);
@@ -30,11 +44,100 @@ public class MailServiceImpl implements MailService {
     try {
       //JavaMailSender javaMailSender = new JavaMailSenderImpl();
       javaMailSender.send(simpleMailMessage);
-      logger.info("发送成功");
+      logger.info("简单邮件发送成功");
     } catch (Exception e) {
-      logger.info("发送失败");
+      logger.error("简单邮件发送失败");
+      e.printStackTrace();
+    }
+  }
+
+  /**
+  * @Description: 发送html邮件
+  * @param: to
+  * @param: subject
+  * @param: content
+  * @return: void
+  * @Date: 2018/12/8
+  */
+  @Override
+  public void sendHtmlMail(String to, String subject, String content) {
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      //true表示需要创建一个multipart message
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      helper.setFrom(from);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setText(content,true);
+      javaMailSender.send(message);
+      logger.info("html邮件发送成功");
+    } catch (MessagingException e) {
+      logger.error("html邮件发送失败");
       e.printStackTrace();
     }
 
   }
+
+  /**
+  * @Description: 发送带附件的邮件
+  * @param: to
+  * @param: subject
+  * @param: content
+  * @param: filePath
+  * @return: void
+  * @Date: 2018/12/8
+  */
+  @Override
+  public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      helper.setFrom(from);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setText(content,true);
+
+      FileSystemResource fileSystemResource = new FileSystemResource(new File(filePath));
+      String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
+      helper.addAttachment(fileName,fileSystemResource);
+      javaMailSender.send(message);
+      logger.info("带附件的邮件发送成功");
+    } catch (MessagingException e) {
+      logger.error("带附件的邮件发送失败");
+      e.printStackTrace();
+    }
+  }
+
+  /**
+  * @Description: 带本地资源的邮件
+  * @param: to
+  * @param: subject
+  * @param: content
+  * @param: rscPath  资源路径
+  * @param: rscId    资源编号
+  * @return: void
+  * @Date: 2018/12/8
+  */
+  @Override
+  public void sendInlineResourceMail(String to, String subject, String content, String rscPath,
+      String rscId) {
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      helper.setFrom(from);
+      helper.setTo("m17854282392@163.com");
+      helper.setSubject(subject);
+      helper.setText(content,true);
+      FileSystemResource resource = new FileSystemResource(new File(rscPath));
+      helper.addInline(rscId,resource);
+      javaMailSender.send(message);
+      logger.info("带图片资源的邮件发送成功");
+    } catch (MessagingException e) {
+      logger.error("带图片资源的邮件发送失败");
+      e.printStackTrace();
+    }
+
+  }
+
+
 }
