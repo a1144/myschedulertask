@@ -14,9 +14,9 @@ public class JdbcTemplateUtils {
     static {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://10.101.25.142:3306/metabase");
-        config.setUsername("root");
-        config.setPassword("078c50");
+        //config.setJdbcUrl("jdbc:mysql://10.101.25.142:3306/metabase");
+        //config.setUsername("root");
+        //config.setPassword("078c50");
         JDBC_TEMPLATE = new JdbcTemplate(new HikariDataSource(config));
     }
 
