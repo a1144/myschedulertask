@@ -15,7 +15,7 @@ public class AnalysisXianghaMenu {
     long start = System.currentTimeMillis();
     //String menuUrl = "http://xml.xiangha.com/xiangha/vivo/caipu/data1.xml";
     String htmlUrl = "http://xml.xiangha.com/xiangha/vivo/caipu/sitemap.xml";
-    String sql = "insert ignore into t_xianghaMenu (loc,lastmod,source_id,title,name,description,web_url,app_url,image,thumbnail_url,"
+    String sql = "insert ignore into t_xiangha_menu (loc,lastmod,source_id,title,name,description,web_url,app_url,image,thumbnail_url,"
         + "cooking_tips,difficulty,instructions_count,instructions,author_name,author_url,date_published,aggregate_rating,view_count,brand,"
         + "logo,show_url,m_show_url) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) on duplicate key update loc=?,lastmod=?,source_id=?,"
         + "title=?,name=?,description=?,web_url=?,app_url=?,image=?,thumbnail_url=?,cooking_tips=?,difficulty=?,instructions_count=?,"

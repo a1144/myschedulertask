@@ -37,7 +37,7 @@ public class ThreadForReadList {
       //myThread2.start();
     FutureTask<Integer> futureTask = new FutureTask<>((Callable<Integer>)()->{
       Integer i = null;
-      for(Integer j : list.subList(8000,12000)){
+      for(Integer j : list.subList(8000,list.size())){
         //Thread.sleep(1000);
         i = j;
         System.out.println("thread3-->" + i);

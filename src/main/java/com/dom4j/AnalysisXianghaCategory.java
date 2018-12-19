@@ -19,7 +19,7 @@ public class AnalysisXianghaCategory {
     long start = System.currentTimeMillis();
     JdbcTemplate jdbcTemplate = JdbcTemplateUtils.getJdbcTemplate();
     String urlPath = "http://xml.xiangha.com/xiangha/vivo/caipu/fenlei.xml";
-    String filePath = "E:\\tuhu香哈\\xianghaCategory.xml";
+    //String filePath = "E:\\tuhu香哈\\xianghaCategory.xml";
     //DownLoadByUrl.downLoadByUrl(urlPath,filePath);
     String sql = "insert ignore into t_xiangha_category (lastmod,name,title,web_url,app_url,image,thumbnail_url,"
         + "related_recipe_count,view_count,brand,logo,show_url,m_show_url) values (?,?,?,?,?,?,?,?,?,?,?,?,?) on "
